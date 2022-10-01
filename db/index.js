@@ -304,6 +304,22 @@ async function getAllUsers() {
     }
   } 
 
+
+  async function getUserByUsername(username) {
+    console.log('username is', username)
+    try {
+      const { rows: [user] } = await client.query(`
+        SELECT *
+        FROM users
+        WHERE username=$1;
+      `, [username]);
+    console.log(user)
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
   
 
   // and export them
@@ -320,5 +336,6 @@ async function getAllUsers() {
     createTags,
     addTagsToPost,
     getPostsByTagName,
+    getUserByUsername,
     
   }
